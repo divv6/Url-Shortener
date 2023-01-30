@@ -30,3 +30,16 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+processResources {
+    Properties props = new Properties()
+    if(project.hasProperty('stage')){
+        project.property('stage')
+        props.load(new FileInputStream(project.property('stage') + ".properties"))
+    } else {
+        props.load(new FileInputStream("local.properties"))
+    }
+    expand props
+    exclude '*.pdf'
+    exclude 'fonts/*.otf'
+}
