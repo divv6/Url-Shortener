@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: ${dbUrl}
+    username: ${dbUsername}
+    password: ${dbPassword}
+  jpa:
+    database-platform: ${dbDatabasePlatform}
+    hibernate.ddl-auto: ${dbHibernateDdlAuto}
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        jdbc.lob.non_contextual_creation: true
