@@ -1,20 +1,17 @@
 package com.example.urlshortener.controller;
 
-import com.example.urlshortener.model.LongUrlRequest;
 import com.example.urlshortener.service.UrlService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 public class UrlController {
 
-    private UrlService urlService;
+    private final UrlService urlService;
 
-    @PostMapping("api/create-short")
-    public String toShortUrl(@RequestBody LongUrlRequest longUrlRequest) {
-        return urlService.toShortUrl(longUrlRequest);
+    @PostMapping("/api/create-short")
+    public String toShortUrl(@RequestParam String url, @RequestParam(required = false) String expiryDate) {
+        return urlService.toShortUrl(url, expiryDate);
     }
 }
