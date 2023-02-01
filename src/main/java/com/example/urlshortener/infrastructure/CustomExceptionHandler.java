@@ -12,8 +12,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
     @ResponseBody
-    public ResponseEntity<ErrorModel> handle(CustomException e) {
-        ErrorModel errorModel = new ErrorModel(e.getMessage());
-        return new ResponseEntity<>(errorModel, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> handle(CustomException e) {
+        return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,11 +1,9 @@
 package com.example.urlshortener.service;
 
 import com.example.urlshortener.infrastructure.CustomException;
-import com.example.urlshortener.model.LongUrlRequest;
 import com.example.urlshortener.repository.Url;
 import com.example.urlshortener.repository.UrlRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
@@ -57,6 +55,15 @@ public class UrlService {
         urlRepository.save(urlobject);
 
         return shortUrl.toString();
+    }
+
+    public String toLongUrl(String shortUrl) {
+
+        Url url = urlRepository.findByShortUrl(shortUrl).orElseThrow(() -> new CustomException("Url not found"));
+        if(url.getExpiryDate() != null && url.getExpiryDate().isBefore(LocalDate.now())) { throw new CustomException("Url expired");}
+
+        return url.getLongUrl();
+
     }
 
 }
